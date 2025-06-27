@@ -59,6 +59,7 @@ public class HostDatabase extends RobustSQLiteOpenHelper implements HostStorage,
 	public final static String FIELD_HOST_PROTOCOL = "protocol";
 	public final static String FIELD_HOST_USERNAME = "username";
 	public final static String FIELD_HOST_HOSTNAME = "hostname";
+	public final static String FIELD_HOST_PASSWORD = "password";
 	public final static String FIELD_HOST_PORT = "port";
 	public final static String FIELD_HOST_LASTCONNECT = "lastconnect";
 	public final static String FIELD_HOST_COLOR = "color";
@@ -129,6 +130,7 @@ public class HostDatabase extends RobustSQLiteOpenHelper implements HostStorage,
 			+ FIELD_HOST_PROTOCOL + " TEXT DEFAULT 'ssh', "
 			+ FIELD_HOST_USERNAME + " TEXT, "
 			+ FIELD_HOST_HOSTNAME + " TEXT, "
+			+ FIELD_HOST_PASSWORD + " TEXT, "
 			+ FIELD_HOST_PORT + " INTEGER, "
 			+ FIELD_HOST_LASTCONNECT + " INTEGER, "
 			+ FIELD_HOST_COLOR + " TEXT, "
@@ -379,6 +381,7 @@ public class HostDatabase extends RobustSQLiteOpenHelper implements HostStorage,
 					+ FIELD_HOST_PROTOCOL + ", "
 					+ FIELD_HOST_USERNAME + ", "
 					+ FIELD_HOST_HOSTNAME + ", "
+					+ FIELD_HOST_PASSWORD + ", "
 					+ FIELD_HOST_PORT + ", "
 					+ FIELD_HOST_LASTCONNECT + ", "
 					+ FIELD_HOST_COLOR + ", "
@@ -493,6 +496,7 @@ public class HostDatabase extends RobustSQLiteOpenHelper implements HostStorage,
 			COL_PROTOCOL = c.getColumnIndexOrThrow(FIELD_HOST_PROTOCOL),
 			COL_USERNAME = c.getColumnIndexOrThrow(FIELD_HOST_USERNAME),
 			COL_HOSTNAME = c.getColumnIndexOrThrow(FIELD_HOST_HOSTNAME),
+			COL_PASSWORD = c.getColumnIndexOrThrow(FIELD_HOST_PASSWORD),
 			COL_PORT = c.getColumnIndexOrThrow(FIELD_HOST_PORT),
 			COL_LASTCONNECT = c.getColumnIndexOrThrow(FIELD_HOST_LASTCONNECT),
 			COL_COLOR = c.getColumnIndexOrThrow(FIELD_HOST_COLOR),
@@ -516,6 +520,7 @@ public class HostDatabase extends RobustSQLiteOpenHelper implements HostStorage,
 			host.setProtocol(c.getString(COL_PROTOCOL));
 			host.setUsername(c.getString(COL_USERNAME));
 			host.setHostname(c.getString(COL_HOSTNAME));
+			host.setPassword(c.getString(COL_PASSWORD));
 			host.setPort(c.getInt(COL_PORT));
 			host.setLastConnect(c.getLong(COL_LASTCONNECT));
 			host.setColor(c.getString(COL_COLOR));

@@ -108,6 +108,7 @@ public class HostEditorFragment extends Fragment {
 	private View mPortContainer;
 	private EditText mPortField;
 	private View mNicknameItem;
+	private EditText mPassWordField;
 	private EditText mNicknameField;
 	private View mColorItem;
 	private TextView mColorText;
@@ -246,6 +247,10 @@ public class HostEditorFragment extends Fragment {
 		mPortField = view.findViewById(R.id.port_edit_text);
 		mPortField.setText(Integer.toString(mHost.getPort()));
 		mPortField.addTextChangedListener(new HostTextFieldWatcher(HostDatabase.FIELD_HOST_PORT));
+
+		mPassWordField = view.findViewById(R.id.password_field);
+		mPassWordField.setText(mHost.getPassword());
+		mPassWordField.addTextChangedListener(new HostTextFieldWatcher(HostDatabase.FIELD_HOST_PASSWORD));
 
 		mNicknameItem = view.findViewById(R.id.nickname_item);
 
@@ -726,6 +731,8 @@ public class HostEditorFragment extends Fragment {
 				}
 			} else if (HostDatabase.FIELD_HOST_NICKNAME.equals(mFieldType)) {
 				mHost.setNickname(text);
+			} else if (HostDatabase.FIELD_HOST_PASSWORD.equals(mFieldType)) {
+				mHost.setPassword(text);
 			} else if (HostDatabase.FIELD_HOST_POSTLOGIN.equals(mFieldType)) {
 				mHost.setPostLogin(text);
 			} else if (HostDatabase.FIELD_HOST_FONTSIZE.equals(mFieldType)) {

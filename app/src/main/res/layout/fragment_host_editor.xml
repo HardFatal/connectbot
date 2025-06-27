@@ -182,6 +182,42 @@
 		</LinearLayout>
 
 		<RelativeLayout
+			android:id="@+id/password_item"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<ImageView
+				style="@style/ListItemIcon"
+				android:layout_width="24dp"
+				android:layout_height="24dp"
+				android:contentDescription="@null"
+				app:srcCompat="@drawable/ic_person" />
+
+			<com.google.android.material.textfield.TextInputLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="16dp"
+				android:layout_marginLeft="68dp"
+				android:layout_marginRight="16dp"
+				android:layout_marginStart="68dp"
+				android:accessibilityLiveRegion="polite"
+				android:contentDescription="@string/prompt_password"
+				android:labelFor="@id/password_field"
+				tools:ignore="UnusedAttribute">
+
+				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/password_field"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="@string/prompt_password"
+					android:inputType="textPassword"
+					android:maxLines="1" />
+
+			</com.google.android.material.textfield.TextInputLayout>
+
+		</RelativeLayout>
+
+		<RelativeLayout
 			android:id="@+id/nickname_item"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"

@@ -60,6 +60,7 @@ import org.connectbot.util.PubkeyUtils;
 
 import android.content.Context;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.trilead.ssh2.AuthAgentCallback;
@@ -124,6 +125,7 @@ public class SSH extends AbsTransport implements ConnectionMonitor, InteractiveC
 	private OutputStream stdin;
 	private InputStream stdout;
 	private InputStream stderr;
+	private boolean useDefaultPassWord = true;
 
 	private static final int conditions = ChannelCondition.STDOUT_DATA
 		| ChannelCondition.STDERR_DATA
@@ -298,13 +300,22 @@ public class SSH extends AbsTransport implements ConnectionMonitor, InteractiveC
 				}
 			} else if (connection.isAuthMethodAvailable(host.getUsername(), AUTH_PASSWORD)) {
 				bridge.outputLine(manager.res.getString(R.string.terminal_auth_pass));
-				String password = bridge.getPromptHelper().requestStringPrompt(null,
-						manager.res.getString(R.string.prompt_password));
+				String password = host.getPassword();
+
+				if (!TextUtils.isEmpty(password) && useDefaultPassWord) {
+					password = host.getPassword();
+					useDefaultPassWord = false;
+				} else {
+					password = bridge.getPromptHelper().requestStringPrompt(null,
+							manager.res.getString(R.string.prompt_password));
+				}
 				if (password != null
 						&& connection.authenticateWithPassword(host.getUsername(), password)) {
+					host.setPassword(password);
 					finishConnection();
 				} else {
 					bridge.outputLine(manager.res.getString(R.string.terminal_auth_pass_fail));
+					host.setPassword("");
 				}
 			} else {
 				bridge.outputLine(manager.res.getString(R.string.terminal_auth_fail));
