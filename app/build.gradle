@@ -35,6 +35,23 @@ android {
 	namespace "org.connectbot"
 	compileSdk 34
 
+	signingConfigs {
+		defaultSign {
+			storeFile rootProject.file('key.jks')
+			storePassword '123456'
+			keyPassword '123456'
+			keyAlias 'key0'
+		}
+		if (project.hasProperty('keystorePassword')) {
+			release {
+				storeFile file(property('keystoreFile'))
+				storePassword property('keystorePassword')
+				keyAlias property('keystoreAlias')
+				keyPassword property('keystorePassword')
+			}
+		}
+	}
+
 	defaultConfig {
 		applicationId "org.connectbot"
 		versionName androidGitVersion.name()
@@ -44,6 +61,7 @@ android {
 		targetSdkVersion 34
 
 		vectorDrawables.useSupportLibrary = true
+		signingConfig signingConfigs.defaultSign
 
 		ndk {
 			abiFilters "x86", "x86_64", "armeabi-v7a", "arm64-v8a"
@@ -62,16 +80,6 @@ android {
 		buildConfig = true
 	}
 
-	signingConfigs {
-		if (project.hasProperty('keystorePassword')) {
-			release {
-				storeFile file(property('keystoreFile'))
-				storePassword property('keystorePassword')
-				keyAlias property('keystoreAlias')
-				keyPassword property('keystorePassword')
-			}
-		}
-	}
 	buildTypes {
 		release {
 			shrinkResources true
